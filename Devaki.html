@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Devaki Gopi Krishna Kurakula | Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0f2027;  /* dark gradient background */
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #f0f0f0;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #203a43;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #007acc;
+      border-radius: 10px;
+    }
+
+    a {
+      color: #00d4ff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #ffa500;
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(0, 122, 204, 0.85);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 122, 204, 0.5);
+      z-index: 1000;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+    }
+    header h1 {
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      color: #fff;
+      margin: 0;
+      user-select: none;
+    }
+    nav a {
+      font-weight: 500;
+      margin-left: 30px;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      position: relative;
+    }
+    nav a::after {
+      content: '';
+      display: block;
+      height: 3px;
+      width: 0%;
+      background: #ffa500;
+      transition: 0.3s ease;
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      border-radius: 2px;
+    }
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 120px auto 60px; /* margin top to offset fixed header */
+      padding: 0 20px;
+    }
+
+    section {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 40px 30px;
+      margin-bottom: 50px;
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 122, 204, 0.3);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2 {
+      color: #00d4ff;
+      font-weight: 700;
+      font-size: 2.2rem;
+      margin-bottom: 25px;
+      border-bottom: 3px solid #ffa500;
+      padding-bottom: 10px;
+      letter-spacing: 1px;
+    }
+    h3 {
+      color: #ffa500;
+      font-weight: 600;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    ul li {
+      margin-bottom: 12px;
+      font-weight: 400;
+      font-size: 1.1rem;
+      line-height: 1.4;
+    }
+
+    /* Contact & Skills flex */
+    .flex-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .flex-50 {
+      flex: 1 1 48%;
+    }
+
+    /* Skills badges */
+    .skills-list span {
+      display: inline-block;
+      background: #00d4ff;
+      color: #0f2027;
+      padding: 8px 16px;
+      margin: 5px 7px 5px 0;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: 0 0 10px #00d4ffaa;
+      cursor: default;
+      user-select: none;
+      transition: transform 0.3s ease;
+    }
+    .skills-list span:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 18px #ffa500;
+      color: #ffa500;
+    }
+
+    /* Projects styling */
+    .project {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 18px 25px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .project:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(255, 165, 0, 0.7);
+      background: rgba(255, 165, 0, 0.1);
+    }
+    .project h3 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+    .project p {
+      font-size: 1rem;
+      margin-bottom: 12px;
+      color: #d8d8d8;
+    }
+    .project a {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #00d4ff;
+    }
+    .project a:hover {
+      color: #ffa500;
+    }
+
+    /* Certifications badges */
+    .badge-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .badge-list a {
+      background: #007acc;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: white;
+      box-shadow: 0 0 15px #007accaa;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      flex: 1 1 calc(50% - 15px);
+      text-align: center;
+      min-width: 250px;
+    }
+    .badge-list a:hover {
+      background: #ffa500;
+      box-shadow: 0 0 20px #ffa500cc;
+      color: #0f2027;
+    }
+
+    /* Contact section */
+    #contact ul li {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+
+    /* Footer */
+    footer {
+      background: #007acc;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      user-select: none;
+      border-radius: 0 0 15px 15px;
+      box-shadow: 0 -5px 15px rgba(0, 122, 204, 0.6);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .flex-row {
+        flex-direction: column;
+      }
+      nav a {
+        margin-left: 15px;
+        font-size: 1rem;
+      }
+      header {
+        padding: 15px 20px;
+      }
+      .container {
+        margin: 100px 15px 40px;
+        padding: 0 10px;
+      }
+      .badge-list a {
+        flex: 1 1 100%;
+        min-width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Devaki Gopi Krishna Kurakula</h1>
+    <nav>
+      <a href="#about" class="active">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <section id="about" class="reveal">
+      <h2>About Me & Education</h2>
+      <p><strong>Email:</strong> <a href="mailto:kurakuladeva1@gmail.com">kurakuladeva1@gmail.com</a> | <strong>Phone:</strong> +91-95057 06134</p>
+      <p><strong>Location:</strong> Ponnur, Andhra Pradesh, India</p>
+      <h3>Education</h3>
+      <ul>
+        <li><strong>B.Tech in Computer Science and Engineering (Data Science)</strong> (2023 - 2027)<br />
+          Vignan’s Foundation for Science, Technology and Research, Guntur<br />
+          CGPA: 7.55 / 10
+        </li>
+        <li><strong>Intermediate (MPC)</strong> (2021 - 2023)<br />
+          Vignan Junior College<br />
+          Percentage: 89.9%
+        </li>
+        <li><strong>SSC</strong> (2020 - 2021)<br />
+          St. Ann’s School<br />
+          Percentage: 73%
+        </li>
+      </ul>
+    </section>
+
+    <section id="skills" class="reveal">
+      <h2>Skills & Coding Profiles</h2>
+      <h3>Languages & Technologies</h3>
+      <div class="skills-list">
+        <span>Python</span>
+        <span>MySQL</span>
+        <span>Pandas</span>
+        <span>Data Science</span>
+        <span>Power BI</span>
+        <span>SQL</span>
+        <span>Dynamic Programming</span>
+        <span>Backtracking</span>
+        <span>Divide and Conquer</span>
+        <span>Data Cleaning</span>
+      </div>
+      <h3>Coding Platforms</h3>
+      <ul>
+        <li><strong>CodeChef:</strong> <a href="https://www.codechef.com/users/kurakuladeva1" target="_blank" rel="noopener">Profile Link</a></li>
+        <li><strong>LeetCode:</strong> <a href="https://leetcode.com/u/231FA23011/" target="_blank" rel="noopener">Profile Link</a></li>
+        <li><strong>GitHub:</strong> <a href="https://github.com/Kdevakigopikrishna" target="_blank" rel="noopener">github.com/Kdevakigopikrishna</a></li>
+      </ul>
+      <h3>Achievements on CodeChef</h3>
+      <ul>
+        <li>196 Days Strong - Legendary Level</li>
+        <li>Contest Contender - Silver Badge (40/50 contests)</li>
+        <li>Problem Solver - Gold Badge (799/1000 problems solved)</li>
+        <li>Daily Streak - Diamond Badge (100 days streak)</li>
+      </ul>
+      <h3>LeetCode Stats</h3>
+      <ul>
+        <li>Rank: 332,435</li>
+        <li>Problems Solved: 232 (Python3), 82 (MySQL), 15 (Pandas)</li>
+        <li>Badges: 5 (100 Days Badge, 200 Days Badge, 50 Days Badge, etc.)</li>
+        <li><a href="https://leetcode.com/u/231FA23011/" target="_blank" rel="noopener">View Full Profile</a></li>
+      </ul>
+    </section>
+
+    <section id="projects" class="reveal">
+      <h2>Projects</h2>
+
+      <div class="project">
+        <h3>File Organizer using Python</h3>
+        <p>A Python script that organizes files automatically in folders based on file types (pdf, pptx, docx, etc.).</p>
+        <p><strong>Features:</strong> Creates folders if missing, moves files accordingly, works for any directory.</p>
+        <p><strong>GitHub:</strong> <a href="https://github.com/Kdevakigopikrishna/python-file-sorter" target="_blank" rel="noopener">python-file-sorter</a></p>
+      </div>
+
+      <div class="project">
+        <h3>HR Analytics Dashboard (Power BI)</h3>
+        <p>Analyzed employee attendance data to provide insights on attendance trends, average presence, and leave patterns using Power BI.</p>
+        <p><strong>GitHub:</strong> <a href="https://github.com/Kdevakigopikrishna/HR-Analytics-PowerBI" target="_blank" rel="noopener">HR-Analytics-PowerBI</a></p>
+      </div>
+
+      <div class="project">
+        <h3>Netflix Data Analysis with SQL</h3>
+        <p>SQL analysis of Netflix movies and TV shows dataset to answer business questions about content distribution, ratings, and trends.</p>
+        <p><strong>GitHub:</strong> <a href="https://github.com/Kdevakigopikrishna/Netflix_data_analysis_with_SQL" target="_blank" rel="noopener">Netflix_data_analysis_with_SQL</a></p>
+      </div>
+
+      <div class="project">
+        <h3>Data Cleaning using Pandas</h3>
+        <p>Cleaned and structured a messy Excel dataset using Python’s Pandas and NumPy for better data analysis readiness.</p>
+        <p><strong>GitHub:</strong> <a href="https://github.com/Kdevakigopikrishna/data-cleaning-using-pandas" target="_blank" rel="noopener">data-cleaning-using-pandas</a></p>
+      </div>
+
+      <div class="project">
+        <h3>Coffee Shop Sales Data Analysis</h3>
+        <p>Analyzed coffee shop sales data to identify trends, peak hours, and product performance using Excel and Power Query.</p>
+        <p><strong>GitHub:</strong> <a href="https://github.com/Kdevakigopikrishna/Coffee-Shop-Sales" target="_blank" rel="noopener">Coffee-Shop-Sales</a></p>
+      </div>
+    </section>
+
+    <section id="certifications" class="reveal">
+      <h2>Certifications & Achievements</h2>
+      <div class="badge-list">
+        <a href="https://certificates.simplicdn.net/share/8909349_90007901756924883930.pdf" target="_blank" rel="noopener" title="Business Analytics with Excel">Business Analytics with Excel (Simplilearn)</a>
+        <a href="https://certificates.simplicdn.net/share/8787825_90007901755254977870.pdf" target="_blank" rel="noopener" title="Power BI for Beginners">Power BI for Beginners (Simplilearn)</a>
+        <a href="https://www.linkedin.com/posts/devakigopikrishnakurakula_codingculture-developerlife-naukricampus-activity-7355573072608866305-fIM5?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAEwIRw8BHiBw0y1gH2AypqYkw8T9uB2fjCo" target="_blank" rel="noopener" title="Techquezt #22 Participation">Techquezt #22 Participation (Naukri Campus)</a>
+        <a href="https://leetcode.com/medal/?showImg=0&id=7656670&isLevel=false" target="_blank" rel="noopener" title="100 Days Badge">100 Days Badge 2025 (LeetCode)</a>
+        <a href="https://leetcode.com/medal/?showImg=0&id=7605947&isLevel=false" target="_blank" rel="noopener" title="SQL 50 Challenge">SQL 50 Challenge Completed (LeetCode)</a>
+        <a href="https://certificates.simplicdn.net/share/8658505_90007901753030515296.pdf" target="_blank" rel="noopener" title="Introduction to MS Excel">Introduction to MS Excel (Simplilearn)</a>
+        <a href="https://www.naukri.com/campus/certificates/participation/v0/686cc805912541154107141a?utm_source=certificate&utm_medium=copy&utm_campaign=686cc805912541154107141a" target="_blank" rel="noopener" title="Codequezt #21 Participation">Codequezt #21 Participation</a>
+        <a href="https://media.geeksforgeeks.org/courses/certificates/960a4487cf577bd90db6bf37e4837a81.pdf" target="_blank" rel="noopener" title="Python Full Course">Python Full Course (GeeksforGeeks)</a>
+        <a href="https://www.codechef.com/certificates/preview/2af2c67" target="_blank" rel="noopener" title="CodeChef 500 Difficulty Category">CodeChef 500 Difficulty Category</a>
+        <a href="https://leetcode.com/medal/?showImg=0&id=7234787&isLevel=false" target="_blank" rel="noopener" title="50 Days Badge">50 Days Badge (LeetCode)</a>
+      </div>
+    </section>
+
+    <section id="contact" class="reveal">
+      <h2>Contact Me</h2>
+      <p>Feel free to reach out for collaboration or questions!</p>
+      <ul>
+        <li>Email: <a href="mailto:kurakuladeva1@gmail.com">kurakuladeva1@gmail.com</a></li>
+        <li>Phone: +91-95057 06134</li>
+        <li>LinkedIn: <a href="https://www.linkedin.com/in/devaki-gopi-krishna-kurakula-8bb2482b7/" target="_blank" rel="noopener">linkedin.com/in/devaki-gopi-krishna-kurakula-8bb2482b7/</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    &copy; 2025 Devaki Gopi Krishna Kurakula | Built with ❤️
+  </footer>
+
+  <script>
+    // Section reveal animation on scroll
+    function revealSections() {
+      const reveals = document.querySelectorAll('.reveal');
+      const windowHeight = window.innerHeight;
+      reveals.forEach(section => {
+        const elementTop = section.getBoundingClientRect().top;
+        if (elementTop < windowHeight - 100) {
+          section.classList.add('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', revealSections);
+    window.addEventListener('load', revealSections);
+
+    // Navigation active link highlight
+    const navLinks = document.querySelectorAll('nav a');
+
+    function setActiveLink() {
+      let index = navLinks.length;
+      while(--index && window.scrollY + 150 < document.querySelector(navLinks[index].hash).offsetTop) {}
+      navLinks.forEach(link => link.classList.remove('active'));
+      navLinks[index].classList.add('active');
+    }
+
+    setActiveLink();
+    window.addEventListener('scroll', setActiveLink);
+
+  </script>
+</body>
+</html>
